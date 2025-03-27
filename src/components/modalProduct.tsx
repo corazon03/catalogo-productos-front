@@ -59,12 +59,23 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
             </ModalHeader>
             <ModalBody>
               <div className="flex flex-col gap-4">
-                <div className="flex justify-center">
-                  <img
-                    src={productData?.main_image || "/placeholder-image.png"}
-                    alt={productData?.name || "Product Image"}
-                    className="w-48 h-48 object-cover rounded-lg shadow-md"
-                  />
+                <div className="flex overflow-x-auto gap-4">
+                  {productData?.product_images?.length ? (
+                    productData.product_images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image.image || "/placeholder-image.png"}
+                        alt={`Product Image ${index + 1}`}
+                        className="w-32 h-32 object-cover rounded-lg shadow-md"
+                      />
+                    ))
+                  ) : (
+                    <img
+                      src="/placeholder-image.png"
+                      alt="Placeholder Image"
+                      className="w-48 h-48 object-cover rounded-lg shadow-md"
+                    />
+                  )}
                 </div>
                 <div className="text-black dark:text-white">
                   <h3 className="text-lg font-semibold">Descripción:</h3>
