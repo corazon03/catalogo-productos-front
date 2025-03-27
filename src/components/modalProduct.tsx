@@ -33,12 +33,12 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
         (await data.json()) as genericResponseModel<producByIdModel>;
       setproductData(response.data);
 
+      const parsedPrice = Number(response.data.price);
+
       setnewPrecio({
         haveDiscount: response.data.on_sale == 1,
         priceNumber: Number(response.data.price),
-        newPrice:
-          Number(response.data.price) -
-          Number(response.data.price) * (response.data.discount / 100),
+        newPrice: parsedPrice - parsedPrice * (response.data.discount / 100),
       });
     } catch (error) {
       console.log(error);
@@ -84,7 +84,7 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                  <span className="text-sm font-medium text-black dark:text-white">
                     Puntuación:
                   </span>
                   <span>
@@ -93,25 +93,29 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                  <span className="text-sm font-medium text-black dark:text-white">
                     Stock:
                   </span>
-                  <span className="text-m font-medium text-gray-600 dark:text-gray-300">
+                  <span className="text-m font-medium text-black dark:text-white">
                     {productData?.stock || "N/A"}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                  <span className="text-sm font-medium text-black dark:text-white">
                     Precio:
                   </span>
-                  <span className="text-lg font-bold text-blue-500">
-                    ${Number(productData?.price).toFixed(2) || "N/A"}
-                  </span>
-                  {newPrecio.haveDiscount && (
-                    <span className="text-lg font-bold text-red-500">
-                      ${newPrecio.newPrice.toFixed(2)}
+                  <div className="flex flex-col items-center gap-2">
+                    <span
+                      className={`text-m font-medium ${newPrecio.haveDiscount && "text-red-500"} ${newPrecio.haveDiscount && "line-through"}`}
+                    >
+                      ${Number(productData?.price).toFixed(2) || "N/A"}
                     </span>
-                  )}
+                    {newPrecio.haveDiscount && (
+                      <span className="text-m font-medium text-black dark:text-white">
+                        ${newPrecio.newPrice.toFixed(2)}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </ModalBody>
@@ -121,7 +125,7 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
                 variant="light"
                 onPress={() => changeIdProduct(null)}
               >
-                Close
+                Cerrar
               </Button>
             </ModalFooter>
           </>
