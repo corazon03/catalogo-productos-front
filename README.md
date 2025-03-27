@@ -1,50 +1,71 @@
-# Vite & HeroUI Template
+Apricot Parrotfish
+Windows Edge
+Eres conocido como:  
+Puedes ser descubierto:
+en esta red
+Configurar Idioma
+Emparejar dispositivos permanentemente
+000 000
+Ingrese esta clave en otro dispositivo
+o escanea el código QR.
 
-This is a template for creating applications using Vite and HeroUI (v2).
+O
+Ingresa la clave de otro dispositivo aquí.
 
-[Try it on CodeSandbox](https://githubbox.com/frontio-ai/vite-template)
+Editar Dispositivos Emparejados
+Activar aceptar automáticamente para aceptar automáticamente todos los archivos enviados desde ese dispositivo.
+Sala pública temporal
+Ingrese el ID de esta sala en otro dispositivo
+o escanea el código QR.
 
-## Technologies Used
+O
+Ingresa el ID de la sala desde otro dispositivo para unirte a la sala.
 
-- [Vite](https://vitejs.dev/guide/)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+quisiera compartir
+ha enviado:
+Enviar Mensaje
+Para: Apricot Parrotfish
+Mensaje Recibido
+Apricot Parrotfish ha enviado:
 
-## How to Use
+# Floréa
 
-To clone the project, run the following command:
+Florea es un proyecto que consiste en un comercio electrónico dedicado a la venta de arreglos florales. Este proyecto tiene como objetivo ofrecer una experiencia única para los usuarios al seleccionar y adquirir productos florales de alta calidad.
+
+Este proyecto utiliza **React** como framework de desarrollo en el front-end, acompañado de la librería **Heroui**. Es importante asegurarse de tener el back-end ejecutado previamente para el correcto funcionamiento del sistema.
+
+#### Comentarios
+
+- Por falta de tiempo, el buscador está presente en la interfaz y en la API, pero no se encuentra implementado para su uso.
+
+## Pasos para ejecutar el proyecto
+
+1. Estando ubicado en el directorio del proyecto, instala las dependencias utilizando el siguiente comando:
 
 ```bash
-git clone https://github.com/frontio-ai/vite-template.git
+npm i
 ```
 
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
-```bash
-npm install
-```
-
-### Run the development server
+2. Inicia el entorno de desarrollo con el comando:
 
 ```bash
 npm run dev
 ```
 
-### Setup pnpm (optional)
+Tras realizar estos pasos, se mostrará la dirección URL a la cual puedes acceder desde el navegador para interactuar con la aplicación.
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+## Capturas de interfaz
 
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
+![App Screenshot](https://i.ibb.co/6RGjy5mx/image.png)
+![App Screenshot](https://i.ibb.co/Xr2Y2gzH/image.png)
+![App Screenshot](https://i.ibb.co/jZbzYpxP/image.png)
+![App Screenshot](https://i.ibb.co/Xr5jNR2p/image.png)
+![App Screenshot](https://i.ibb.co/LDVKSvwW/image.png)
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/frontio-ai/vite-template/blob/main/LICENSE).
+Compartir un mensaje de texto
+Edita el mensaje antes de enviarlo:
+Mostrar siempre este cuadro de diálogo al compartir texto
+Connectado
+PairDrop
+v1.11.2
+La forma más sencilla de transferir archivos entre dispositivos
