@@ -116,7 +116,10 @@ export default function IndexPage() {
             </div>
           </div>
         </div>
-        <div className={`gap-2 grid grid-cols-2 sm:grid-cols-5 justify-center`}>
+        <div
+          className={`gap-2 grid grid-cols-2 sm:grid-cols-5 justify-center`}
+          style={{ minHeight: "300px" }}
+        >
           {paginationInfo?.data.map((producto) => (
             <CardProduct
               key={producto.id_product}
