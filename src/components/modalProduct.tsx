@@ -54,7 +54,7 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col justify-center items-center gap-1">
               {productData?.name} - {productData?.mini_description}
             </ModalHeader>
             <ModalBody>
@@ -66,30 +66,31 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
                     className="w-48 h-48 object-cover rounded-lg shadow-md"
                   />
                 </div>
-                <div className="text-white">
+                <div className="text-black dark:text-white">
                   <h3 className="text-lg font-semibold">Descripción:</h3>
-                  <p className="text-sm text-black dark:text-white">
+                  <p className="text-sm">
                     {productData?.description || "No disponible"}
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
                     Puntuación:
                   </span>
-                  <span className="text-lg font-bold text-yellow-500">
+                  <span>
                     {productData?.score || "N/A"}
+                    <span className="text-m font-bold text-yellow-500"> ★</span>
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
                     Stock:
                   </span>
-                  <span className="text-lg font-bold text-green-500">
+                  <span className="text-m font-medium text-gray-600 dark:text-gray-300">
                     {productData?.stock || "N/A"}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
                     Precio:
                   </span>
                   <span className="text-lg font-bold text-blue-500">
