@@ -16,6 +16,11 @@ type Props = {
 };
 
 function ModalProduct({ idProduct, changeIdProduct }: Props) {
+  const [newPrecio, setnewPrecio] = useState({
+    haveDiscount: false,
+    priceNumber: 0,
+    newPrice: 0,
+  });
   const [productData, setproductData] = useState<producByIdModel | null>(null);
   const [isLoading, setisLoading] = useState(true);
 
@@ -27,6 +32,14 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
       const response =
         (await data.json()) as genericResponseModel<producByIdModel>;
       setproductData(response.data);
+
+      setnewPrecio({
+        haveDiscount: response.data.on_sale == 1,
+        priceNumber: Number(response.data.price),
+        newPrice:
+          Number(response.data.price) -
+          Number(response.data.price) * (response.data.discount / 100),
+      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,7 +50,7 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
     getProductById();
   }, []);
   return (
-    <Modal isOpen={true}>
+    <Modal isOpen={true} hideCloseButton>
       <ModalContent>
         {(onClose) => (
           <>
@@ -82,6 +95,11 @@ function ModalProduct({ idProduct, changeIdProduct }: Props) {
                   <span className="text-lg font-bold text-blue-500">
                     ${Number(productData?.price).toFixed(2) || "N/A"}
                   </span>
+                  {newPrecio.haveDiscount && (
+                    <span className="text-lg font-bold text-red-500">
+                      ${newPrecio.newPrice.toFixed(2)}
+                    </span>
+                  )}
                 </div>
               </div>
             </ModalBody>
