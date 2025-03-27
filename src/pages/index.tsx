@@ -4,32 +4,79 @@ import { Chip } from "@heroui/chip";
 import DefaultLayout from "@/layouts/default";
 import { CardProduct } from "@/components/cardProduct";
 import { Pagination } from "@heroui/pagination";
-import { Select, SelectSection, SelectItem } from "@heroui/select";
+import { Select, SelectItem } from "@heroui/select";
 import {
+  categoryModel,
   genericResponseModel,
-  productModel,
   responsePaginationModel,
 } from "@/types/models";
 import { useEffect, useState } from "react";
-import { use } from "framer-motion/client";
+import { CircularProgress } from "@heroui/progress";
+import { ModalProduct } from "@/components/modalProduct";
+
+interface RequestPaginatedData {
+  page?: number | null;
+  limit?: number | null;
+  category?: number | null;
+}
 
 export default function IndexPage() {
-  const [productos, setproductos] = useState<productModel[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
 
-  async function initialLoad() {
-    const data = await fetch("http://127.0.0.1:8000/api/products");
-    const response =
-      (await data.json()) as genericResponseModel<responsePaginationModel>;
+  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
 
-    setproductos(response.data.data);
+  const [paginationInfo, setPaginationInfo] =
+    useState<null | responsePaginationModel>(null);
+
+  const [categories, setCategories] = useState<null | categoryModel[]>(null);
+
+  const [requestData, setRequesData] = useState<RequestPaginatedData>({
+    page: 1,
+    limit: 5,
+    category: null,
+  });
+
+  async function getProducts() {
+    setIsLoadingProducts(true);
+
+    let url = "http://127.0.0.1:8000/api/products";
+    if (requestData.page) url += `?page=${requestData.page}`;
+    if (requestData.limit) url += `&limit=${requestData.limit}`;
+    if (requestData.category) url += `&idCategory=${requestData.category}`;
+
+    console.log({ url });
+    try {
+      const peticion = await fetch(url);
+      const data =
+        (await peticion.json()) as genericResponseModel<responsePaginationModel>;
+
+      setPaginationInfo(data.data);
+    } catch (error) {
+    } finally {
+      setIsLoadingProducts(false);
+    }
+  }
+
+  async function getCategories() {
+    const data = await fetch("http://127.0.0.1:8000/api/categories");
+    const response = (await data.json()) as genericResponseModel<
+      categoryModel[]
+    >;
+    setCategories(response.data);
   }
 
   useEffect(() => {
-    initialLoad();
+    getProducts();
+  }, [requestData]);
+
+  //Carga inicial
+  useEffect(() => {
+    getProducts();
+    getCategories();
   }, []);
   return (
     <DefaultLayout>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <section className="flex flex-col items-center justify-center gap-4">
         <h1
           className={`${title.toString()} text-4xl font-bold text-center text-gray-800 dark:text-gray-100`}
         >
@@ -41,48 +88,82 @@ export default function IndexPage() {
           </span>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div className="flex flex-wrap gap-2">
-              {/* Crear FOR para categorías */}
-              <Chip
-                radius="lg"
-                className="bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
-              >
-                Categoría 1
-              </Chip>
-              <Chip
-                radius="lg"
-                className="bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
-              >
-                Categoría 2
-              </Chip>
-              <Chip
-                radius="lg"
-                className="bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800"
-              >
-                Categoría 3
-              </Chip>
+              {categories?.map((category) => (
+                <Chip
+                  radius="lg"
+                  key={category.id_category}
+                  onClick={() =>
+                    setRequesData((prev) => {
+                      return {
+                        ...prev,
+                        category:
+                          prev.category === category.id_category
+                            ? null
+                            : category.id_category,
+                        page: 1,
+                      };
+                    })
+                  }
+                  className={`cursor-pointer bg-white dark:bg-black text-blue-700 border-blue-700 border-[1px] hover:bg-blue-200 dark:border-blue-700 dark:text-blue-300 dark:hover:bg-blue-800 ${
+                    requestData.category === category.id_category
+                      ? "bg-blue-800 text-white dark:bg-blue-800 dark:text-white"
+                      : ""
+                  }`}
+                >
+                  {category.name}
+                </Chip>
+              ))}
             </div>
           </div>
         </div>
-        <div className="gap-2 grid grid-cols-2 sm:grid-cols-5">
-          {productos.map((producto) => (
-            <CardProduct {...producto} />
+        <div className={`gap-2 grid grid-cols-2 sm:grid-cols-5 justify-center`}>
+          {paginationInfo?.data.map((producto) => (
+            <CardProduct
+              key={producto.id_product}
+              data={producto}
+              selectProduct={setSelectedProduct}
+            />
           ))}
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mt-4 w-full">
+          {isLoadingProducts && <CircularProgress aria-label="Loading..." />}
           <div className="">
-            <Pagination initialPage={1} total={10} />
+            {paginationInfo !== null && (
+              <Pagination
+                initialPage={1}
+                page={paginationInfo?.current_page}
+                total={paginationInfo?.last_page}
+                showControls
+                onChange={(e) =>
+                  setRequesData((prev) => {
+                    return { ...prev, page: e };
+                  })
+                }
+              />
+            )}
           </div>
           <Select
             className="max-w-[100px] sm:max-w-[120px]"
             label="Límite"
             defaultSelectedKeys={[3]}
+            onChange={(e) =>
+              setRequesData((prev) => {
+                return { ...prev, limit: Number(e.target.value), page: 1 };
+              })
+            }
           >
-            {[{ 3: 3 }, { 5: 5 }, { 10: 10 }, { 20: 20 }].map((limit) => (
-              <SelectItem key={limit[3]}>{limit[3]}</SelectItem>
+            {[3, 5, 10, 20].map((limit) => (
+              <SelectItem key={limit}>{limit}</SelectItem>
             ))}
           </Select>
         </div>
       </section>
+      {selectedProduct !== null && (
+        <ModalProduct
+          changeIdProduct={setSelectedProduct}
+          idProduct={selectedProduct}
+        />
+      )}
     </DefaultLayout>
   );
 }
