@@ -5,11 +5,28 @@ import DefaultLayout from "@/layouts/default";
 import { CardProduct } from "@/components/cardProduct";
 import { Pagination } from "@heroui/pagination";
 import { Select, SelectSection, SelectItem } from "@heroui/select";
+import {
+  genericResponseModel,
+  productModel,
+  responsePaginationModel,
+} from "@/types/models";
+import { useEffect, useState } from "react";
+import { use } from "framer-motion/client";
 
 export default function IndexPage() {
-  function initialLoad() {
-    fetch("http://127.0.0.1:8000/api/products");
+  const [productos, setproductos] = useState<productModel[]>([]);
+
+  async function initialLoad() {
+    const data = await fetch("http://127.0.0.1:8000/api/products");
+    const response =
+      (await data.json()) as genericResponseModel<responsePaginationModel>;
+
+    setproductos(response.data.data);
   }
+
+  useEffect(() => {
+    initialLoad();
+  }, []);
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -46,8 +63,10 @@ export default function IndexPage() {
             </div>
           </div>
         </div>
-        <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
-          <CardProduct />
+        <div className="gap-2 grid grid-cols-2 sm:grid-cols-5">
+          {productos.map((producto) => (
+            <CardProduct {...producto} />
+          ))}
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mt-4 w-full">
           <div className="">
