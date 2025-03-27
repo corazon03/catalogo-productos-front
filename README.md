@@ -1,33 +1,3 @@
-Apricot Parrotfish
-Windows Edge
-Eres conocido como:  
-Puedes ser descubierto:
-en esta red
-Configurar Idioma
-Emparejar dispositivos permanentemente
-000 000
-Ingrese esta clave en otro dispositivo
-o escanea el código QR.
-
-O
-Ingresa la clave de otro dispositivo aquí.
-
-Editar Dispositivos Emparejados
-Activar aceptar automáticamente para aceptar automáticamente todos los archivos enviados desde ese dispositivo.
-Sala pública temporal
-Ingrese el ID de esta sala en otro dispositivo
-o escanea el código QR.
-
-O
-Ingresa el ID de la sala desde otro dispositivo para unirte a la sala.
-
-quisiera compartir
-ha enviado:
-Enviar Mensaje
-Para: Apricot Parrotfish
-Mensaje Recibido
-Apricot Parrotfish ha enviado:
-
 # Floréa
 
 Florea es un proyecto que consiste en un comercio electrónico dedicado a la venta de arreglos florales. Este proyecto tiene como objetivo ofrecer una experiencia única para los usuarios al seleccionar y adquirir productos florales de alta calidad.
@@ -61,11 +31,3 @@ Tras realizar estos pasos, se mostrará la dirección URL a la cual puedes acced
 ![App Screenshot](https://i.ibb.co/jZbzYpxP/image.png)
 ![App Screenshot](https://i.ibb.co/Xr5jNR2p/image.png)
 ![App Screenshot](https://i.ibb.co/LDVKSvwW/image.png)
-
-Compartir un mensaje de texto
-Edita el mensaje antes de enviarlo:
-Mostrar siempre este cuadro de diálogo al compartir texto
-Connectado
-PairDrop
-v1.11.2
-La forma más sencilla de transferir archivos entre dispositivos
